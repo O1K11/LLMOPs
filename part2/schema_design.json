@@ -1,0 +1,49 @@
+{
+    "feature": "career_path_navigator",
+    "version": "2026-01-26_v1",
+    "description": "Initial rollout with flexible provider assignment and A/B testing",
+    "providers": {
+        "claude": {
+            "timeout_ms": 2500,
+            "max_retries": 1,
+            "fallback": "gpt4"
+        },
+        "gpt4": {
+            "timeout_ms": 2500,
+            "max_retries": 0
+        }
+    },
+    "prompts": {
+        "v1": {
+            "template": "Given the user profile {{user_profile}}, suggest 3 personalized career paths with reasoning.",
+            "metadata": {
+            "author": "ai_team",
+            "created": "2026-01-20"
+            }
+        },
+        "v2": {
+            "template": "Analyze {{user_profile}} and provide 5 potential career paths, explaining each recommendation in detail.",
+            "metadata": {
+            "author": "ai_team",
+            "created": "2026-01-25"
+            }
+        }
+    },
+    "ab_testing": {
+        "enabled": true,
+        "splits": [
+        {
+            "cohort": "A",
+            "provider": "claude",
+            "prompt_version": "v1",
+            "percentage": 50
+        },
+        {
+            "cohort": "B",
+            "provider": "gpt4",
+            "prompt_version": "v2",
+            "percentage": 50
+        }
+        ]
+    }
+}
